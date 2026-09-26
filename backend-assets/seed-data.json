@@ -1,0 +1,161 @@
+{
+  "tests": [
+    {
+      "id": "a001-4b11-9a1c-000000000001",
+      "evaluatorName": "Ana Morales (UX Lead)",
+      "taskDescription": "Completar registro de nueva prueba de usabilidad y guardar",
+      "timeOnTask": 48.5,
+      "errorsCount": 0,
+      "satisfactionScore": 5,
+      "taskResult": "success",
+      "observations": "Flujo intuitivo con campos agrupados. Las estrellas facilitan calificar sin dudar de la escala.",
+      "createdAt": "2026-09-21T10:15:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000002",
+      "evaluatorName": "Carlos Benítez (Frontend Dev)",
+      "taskDescription": "Localizar botón de exportación de reporte en el dashboard",
+      "timeOnTask": 92.0,
+      "errorsCount": 2,
+      "satisfactionScore": 2,
+      "taskResult": "failure",
+      "observations": "El usuario no encontró el botón de exportación porque estaba oculto al final de la página sin contraste visual.",
+      "createdAt": "2026-09-21T14:30:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000003",
+      "evaluatorName": "Sofía Herrera (Product Designer)",
+      "taskDescription": "Filtrar métricas de usabilidad por severidad mayor en KPI cards",
+      "timeOnTask": 35.2,
+      "errorsCount": 0,
+      "satisfactionScore": 4,
+      "taskResult": "success",
+      "observations": "Interacción directa y clara. La agrupación por severidad sigue la Ley de Semejanza.",
+      "createdAt": "2026-09-22T09:00:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000004",
+      "evaluatorName": "David Paredes (QA Engineer)",
+      "taskDescription": "Copiar observaciones cualitativas al módulo de IA",
+      "timeOnTask": 110.4,
+      "errorsCount": 3,
+      "satisfactionScore": 2,
+      "taskResult": "failure",
+      "observations": "Alta fricción al tener que copiar y pegar texto manualmente entre pestañas en el mockup antiguo.",
+      "createdAt": "2026-09-22T16:45:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000005",
+      "evaluatorName": "Elena Ramos (Evaluadora IHC)",
+      "taskDescription": "Navegar entre las 4 secciones principales usando solo teclado (Tab / Shift+Tab)",
+      "timeOnTask": 55.0,
+      "errorsCount": 1,
+      "satisfactionScore": 4,
+      "taskResult": "success",
+      "observations": "El foco visible responde adecuadamente según WCAG 2.1 POUR. No hubo trampas de foco.",
+      "createdAt": "2026-09-23T11:20:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000006",
+      "evaluatorName": "Mateo Ortiz (Desarrollador Junior)",
+      "taskDescription": "Comprender la escala de satisfacción ingresando un puntaje",
+      "timeOnTask": 62.1,
+      "errorsCount": 1,
+      "satisfactionScore": 3,
+      "taskResult": "success",
+      "observations": "Con input numérico tradicional dudó si 1 era el mejor o el peor. El StarRating eliminó la duda por completo.",
+      "createdAt": "2026-09-23T15:10:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000007",
+      "evaluatorName": "Valeria Castro (Investigadora UX)",
+      "taskDescription": "Revisar hallazgos de severidad catastrófica (Nielsen Nivel 4)",
+      "timeOnTask": 28.0,
+      "errorsCount": 0,
+      "satisfactionScore": 5,
+      "taskResult": "success",
+      "observations": "Identificación inmediata gracias a los Badges de severidad con contraste accesible.",
+      "createdAt": "2026-09-24T09:40:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000008",
+      "evaluatorName": "Jorge Salazar (Estudiante IHC)",
+      "taskDescription": "Interpretar tendencia temporal de métricas en el Dashboard",
+      "timeOnTask": 42.0,
+      "errorsCount": 0,
+      "satisfactionScore": 4,
+      "taskResult": "success",
+      "observations": "Los indicadores delta (+5.2%) comunican contexto temporal sin obligar a memorizar datos pasados.",
+      "createdAt": "2026-09-24T17:15:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000009",
+      "evaluatorName": "Lucía Viteri (Líder Técnico)",
+      "taskDescription": "Generar historias de usuario a partir del análisis con IA",
+      "timeOnTask": 38.6,
+      "errorsCount": 0,
+      "satisfactionScore": 5,
+      "taskResult": "success",
+      "observations": "La estructura en tarjetas con criterios de aceptación y prioridades ahorra horas de redacción.",
+      "createdAt": "2026-09-25T11:00:00.000Z"
+    },
+    {
+      "id": "a001-4b11-9a1c-000000000010",
+      "evaluatorName": "Gabriel Mendoza (Tester Accesibilidad)",
+      "taskDescription": "Evaluar contraste de colores en botones primarios y secundarios",
+      "timeOnTask": 50.3,
+      "errorsCount": 0,
+      "satisfactionScore": 5,
+      "taskResult": "success",
+      "observations": "Cumple el ratio mínimo 4.5:1 exigido por WCAG 2.1 AA.",
+      "createdAt": "2026-09-25T16:30:00.000Z"
+    }
+  ],
+  "findings": [
+    {
+      "id": "find-001",
+      "severity": 4,
+      "heuristicViolated": "Nielsen #1: Visibilidad del estado del sistema",
+      "location": "Pestaña Asistente IA",
+      "description": "El textarea es de solo lectura y no existe ningún indicador visual de procesamiento o carga mientras la IA analiza.",
+      "recommendation": "Incorporar estados explícitos de carga (Spinner, barra de progreso y mensajes informativos). Reemplazar textarea por tarjetas legibles.",
+      "theoreticalBasis": "Shneiderman #3 (Ofrecer retroalimentación informativa) y Principio POUR: Perceptible"
+    },
+    {
+      "id": "find-002",
+      "severity": 3,
+      "heuristicViolated": "Nielsen #2: Correspondencia con el mundo real",
+      "location": "Pestaña Registro de Prueba (Campo Satisfacción)",
+      "description": "El input numérico (1-5) carece de affordance visual: el evaluador no sabe si 1 es excelente o deficiente.",
+      "recommendation": "Reemplazar el campo numérico por un componente interactivo StarRating con etiquetas explícitas y affordance natural.",
+      "theoreticalBasis": "Don Norman: Affordance y Manipulación Directa (Semana 4)"
+    },
+    {
+      "id": "find-003",
+      "severity": 3,
+      "heuristicViolated": "Nielsen #6: Reconocimiento antes que recuerdo",
+      "location": "Pestaña Dashboard",
+      "description": "Las tarjetas de KPI muestran números aislados sin contexto temporal ni porcentaje de variación vs semana anterior.",
+      "recommendation": "Agregar indicadores de tendencia y métricas comparativas para reducir la carga de memoria operativa (Miller 3-7 ítems).",
+      "theoreticalBasis": "Semana 6: Memoria Humana y Carga Cognitiva"
+    },
+    {
+      "id": "find-004",
+      "severity": 2,
+      "heuristicViolated": "Nielsen #4: Consistencia y estándares",
+      "location": "Barra de navegación de pestañas",
+      "description": "La pestaña activa solo cambia levemente de tono sin soporte de accesibilidad por teclado ni clara relación Figura-Fondo.",
+      "recommendation": "Implementar patrón accesible WAI-ARIA (role=\"tablist\", aria-selected) y contraste alto de Figura-Fondo.",
+      "theoreticalBasis": "Leyes Gestalt: Figura-Fondo (Semana 6) y WCAG 2.1 Operable"
+    },
+    {
+      "id": "find-005",
+      "severity": 2,
+      "heuristicViolated": "Nielsen #8: Diseño estético y minimalista",
+      "location": "Formulario de Registro",
+      "description": "Los campos del formulario estaban dispersos sin delimitación semántica.",
+      "recommendation": "Agrupar en contenedores lógicos: 'Datos del Evaluador', 'Métricas ISO' y 'Observaciones'.",
+      "theoreticalBasis": "Leyes Gestalt: Proximidad y Cierre (Semana 6)"
+    }
+  ]
+}
