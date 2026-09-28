@@ -239,7 +239,7 @@ export const TestForm: React.FC<TestFormProps> = ({ onSubmit, isSubmitting = fal
           <span>2. Métricas de Calidad de Uso (ISO 9241-11)</span>
         </legend>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', minWidth: 0 }}>
           <Input
             id="timeOnTask"
             type="number"
@@ -278,7 +278,7 @@ export const TestForm: React.FC<TestFormProps> = ({ onSubmit, isSubmitting = fal
             required
             helperText="¿El usuario logró completar el objetivo con éxito?"
           >
-            <div style={{ display: 'flex', gap: '12px', minHeight: '44px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
               <label
                 style={{
                   display: 'inline-flex',
@@ -320,6 +320,7 @@ export const TestForm: React.FC<TestFormProps> = ({ onSubmit, isSubmitting = fal
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '8px',
                   padding: '8px 16px',
                   borderRadius: tokens.radii.md,
@@ -340,6 +341,7 @@ export const TestForm: React.FC<TestFormProps> = ({ onSubmit, isSubmitting = fal
                   cursor: 'pointer',
                   fontSize: '14px',
                   minHeight: '44px',
+                  textAlign: 'center',
                 }}
               >
                 <input
