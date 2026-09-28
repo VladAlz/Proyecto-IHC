@@ -14,7 +14,7 @@ export function useTests() {
   const testsQuery = useQuery({
     queryKey: ['tests'],
     queryFn: fetchTests,
-    staleTime: 1000 * 30, // 30 segundos
+    staleTime: 1000 * 30,
   });
 
   const createMutation = useMutation({

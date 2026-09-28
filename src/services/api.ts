@@ -99,11 +99,13 @@ export function getBackendStatus(): { isAvailable: boolean; hasChecked: boolean 
 
 export async function fetchTests(): Promise<UsabilityTest[]> {
   try {
-    const res = await apiClient.get<UsabilityTest[]>('/tests');
+    const res = await apiClient.get<UsabilityTest[] | { data: UsabilityTest[]; meta: unknown }>('/tests');
     isBackendAvailable = true;
-    // Sincronizar en local por seguridad
-    saveLocalTests(res.data);
-    return res.data;
+    const tests: UsabilityTest[] = Array.isArray(res.data)
+      ? res.data
+      : (res.data as { data: UsabilityTest[] }).data;
+    saveLocalTests(tests);
+    return tests;
   } catch (error) {
     isBackendAvailable = false;
     // Fallback transparente al mock local
