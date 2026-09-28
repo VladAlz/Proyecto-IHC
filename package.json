@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "mock-backend": "node backend-assets/mock-server.js"
+    "mock-backend": "node backend-assets/mock-server.js",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "backend:dev": "npm --prefix backend run start:dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:start": "npm --prefix backend run start:prod"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.56.2",
