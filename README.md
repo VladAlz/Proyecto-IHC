@@ -5,6 +5,10 @@
 
 > **v1.1:** rediseño visual con color por módulo y mayor contraste (ver `docs/CAMBIOS_Y_DECISIONES.md`, sección 5).
 
+> ## 👥 ¿Eres del grupo y quieres ejecutarlo? → lee **[GUIA_EQUIPO.md](GUIA_EQUIPO.md)**
+> Resumen: `git clone -b feature/ihc-ai-1.1 https://github.com/VladAlz/Proyecto-IHC.git` → `npm run setup` →
+> copia `backend/.env.example` a **`backend/.env`** y pega ahí tu API key de Gemini → `npm run dev` → http://localhost:5173
+
 Plataforma web para **planificar, ejecutar, registrar y analizar pruebas de usabilidad**, con un **Asistente IA**
 que convierte observaciones en hallazgos, recomendaciones e historias de usuario, y un **módulo SCRUM** para
 organizar el rediseño por sprints. Implementa los 5 módulos del documento *Proyecto integrador — Usability Test
