@@ -1,0 +1,295 @@
+/* ==========================================================================
+   Rediseño visual v1.1 — más color, contraste y jerarquía, menos texto pequeño
+   - Color por módulo (ver styles/theme.ts) en pestañas y encabezados
+   - Tamaño mínimo de texto 13–14px; títulos más grandes
+   - Todos los acentos con contraste ≥ 4.5:1 (WCAG 2.1 AA)
+   ========================================================================== */
+
+body {
+  background: #f4f6fb;
+  color: #1e293b;
+}
+
+/* ---------- Cabecera con degradado ---------- */
+.app-header {
+  background: linear-gradient(120deg, #312e81 0%, #4338ca 55%, #6d28d9 100%);
+  padding: 16px;
+  color: #ffffff;
+}
+.app-header .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+.app-header :focus-visible {
+  outline-color: #ffffff;
+}
+
+/* ---------- Pestañas tipo píldora (color del módulo) ---------- */
+/* Escritorio/tablet: si no caben, pasan a una segunda línea (todas siempre visibles) */
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 1280px;
+  margin: 0 auto;
+  list-style: none;
+}
+/* Móvil: una sola fila desplazable con scroll discreto */
+@media (max-width: 720px) {
+  .nav-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding-bottom: 4px;
+  }
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #334155;
+  border: 2px solid transparent;
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+.nav-pill span[aria-hidden='true'] {
+  color: var(--pill-accent);
+}
+.nav-pill:hover {
+  background: var(--pill-soft);
+  color: #0f172a;
+  text-decoration: none;
+}
+.nav-pill.is-active {
+  background: var(--pill-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 18px -10px var(--pill-accent);
+}
+.nav-pill.is-active span[aria-hidden='true'] {
+  color: #ffffff;
+}
+.nav-pill:focus-visible {
+  outline: 3px solid var(--pill-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Encabezado de página "hero" ---------- */
+.page-hero {
+  background: linear-gradient(120deg, var(--hero-soft, #eef2ff) 0%, #ffffff 75%);
+  border: 1px solid var(--hero-ring, #c7d2fe);
+  border-left: 6px solid var(--hero-accent, #4f46e5);
+  border-radius: 16px;
+  padding: 20px 24px;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+.page-hero h1 {
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.4px;
+}
+.page-hero p {
+  font-size: 16px;
+  color: #334155;
+  margin-top: 4px;
+}
+.hero-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--hero-accent, #4f46e5);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 10px 22px -12px var(--hero-accent, #4f46e5);
+}
+.hero-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ---------- Tarjetas ---------- */
+.card {
+  border-radius: 14px;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 16px -10px rgba(15, 23, 42, 0.18);
+}
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.card-subtitle {
+  font-size: 14px;
+  color: #475569;
+}
+
+/* ---------- Tipografía: mínimo legible ---------- */
+.muted {
+  font-size: 14px;
+  color: #475569;
+}
+.small {
+  font-size: 14px;
+}
+.field > label,
+.field-label {
+  font-size: 15px;
+  color: #1e293b;
+}
+.field-help {
+  font-size: 13px;
+  color: #475569;
+}
+.field-error {
+  font-size: 14px;
+}
+.control {
+  font-size: 15px;
+  border-color: #94a3b8;
+}
+.control-sm {
+  font-size: 14px;
+}
+.check {
+  font-size: 15px;
+}
+
+/* ---------- Tablas: encabezado con contraste ---------- */
+.table {
+  font-size: 14px;
+}
+.table th {
+  background: #eef2ff;
+  color: #312e81;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 700;
+}
+.table td {
+  padding: 12px;
+}
+.table tbody tr:nth-child(even) {
+  background: #fafbff;
+}
+.table tbody tr:hover {
+  background: #eef2ff;
+}
+
+/* ---------- Sub-pestañas (segmented) ---------- */
+.segmented {
+  background: #e0e7ff;
+}
+.segmented button {
+  font-size: 14px;
+  min-height: 40px;
+  color: #312e81;
+}
+.segmented button[aria-pressed='true'],
+.segmented button[aria-selected='true'] {
+  background: #4338ca;
+  color: #ffffff;
+}
+
+/* ---------- Avisos ---------- */
+.alert {
+  font-size: 15px;
+  border-radius: 12px;
+  border-width: 1px;
+  border-left-width: 5px;
+}
+
+/* ---------- Gráficos de barras ---------- */
+.bar-row {
+  font-size: 14px;
+}
+.bar-track {
+  height: 16px;
+  background: #e2e8f0;
+}
+.legend {
+  font-size: 14px;
+}
+
+/* ---------- Kanban: color por columna (estado) ---------- */
+.kanban-col {
+  background: #eef2f7;
+  border-top: 5px solid #64748b;
+}
+.kanban-col[data-status='en_progreso'] {
+  border-top-color: #b45309;
+}
+.kanban-col[data-status='en_revision'] {
+  border-top-color: #2563eb;
+}
+.kanban-col[data-status='terminado'] {
+  border-top-color: #15803d;
+}
+.kanban-col h3 {
+  font-size: 16px !important;
+}
+.kanban-card {
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+/* ---------- Varios ---------- */
+.empty {
+  font-size: 15px;
+}
+.toast {
+  font-size: 15px;
+}
+.ai-chip {
+  font-size: 12px;
+}
+.stepper li {
+  font-size: 15px;
+}
+kbd {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  border-bottom-width: 2px;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+@media (max-width: 720px) {
+  .page-hero {
+    padding: 16px;
+  }
+  .page-hero h1 {
+    font-size: 22px;
+  }
+  .page-hero p {
+    font-size: 15px;
+  }
+  .hero-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .app-header p:last-child {
+    display: none;
+  }
+}
+
+/* Barras comparativas antes/después: cada barra alineada con su valor */
+.bar-pair {
+  gap: 6px;
+}
+.bar-pair .bar-track {
+  height: 12px;
+}

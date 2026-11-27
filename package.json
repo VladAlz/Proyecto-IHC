@@ -1,0 +1,39 @@
+{
+  "name": "ihc-ai-usability-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "setup": "npm install && npm --prefix backend install",
+    "predev": "node scripts/dev-ports.mjs check",
+    "dev": "concurrently -k -n API,WEB -c blue,green \"npm:backend:dev\" \"npm:web\"",
+    "stop": "node scripts/dev-ports.mjs stop",
+    "web": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "backend:dev": "npm --prefix backend run start:dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:start": "npm --prefix backend run start:prod",
+    "backend:test": "npm --prefix backend test",
+    "db:reset": "npm --prefix backend run db:reset",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.56.2",
+    "axios": "^1.7.7",
+    "lucide-react": "^0.441.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "@types/react": "^18.3.8",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.6",
+    "concurrently": "^9.0.1"
+  }
+}
