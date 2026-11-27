@@ -65,7 +65,7 @@ export const Badge: React.FC<BadgeProps> = ({
         alignItems: 'center',
         gap: '4px',
         padding: size === 'sm' ? '2px 8px' : '4px 10px',
-        fontSize: size === 'sm' ? '11px' : '12px',
+        fontSize: size === 'sm' ? '12px' : '13px',
         fontWeight: 600,
         lineHeight: 1.2,
         borderRadius: '9999px',

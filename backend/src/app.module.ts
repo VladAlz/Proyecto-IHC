@@ -1,36 +1,27 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TestsModule } from './tests/tests.module';
+import { FindingsModule } from './findings/findings.module';
+import { PlansModule } from './plans/plans.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ComparisonModule } from './comparison/comparison.module';
+import { ScrumModule } from './scrum/scrum.module';
 import { AiModule } from './ai/ai.module';
 import { DatabaseModule } from './database/database.module';
 import { HealthModule } from './health/health.module';
-import { UsabilityTest } from './tests/entities/usability-test.entity';
-import { UsabilityFinding } from './dashboard/entities/usability-finding.entity';
+import { buildDataSourceOptions } from './database/db-config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env',
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST', 'localhost'),
-        port: configService.get<number>('DB_PORT', 5432),
-        username: configService.get<string>('DB_USERNAME', 'postgres'),
-        password: configService.get<string>('DB_PASSWORD', 'postgrespassword'),
-        database: configService.get<string>('DB_DATABASE', 'usability_db'),
-        entities: [UsabilityTest, UsabilityFinding],
-        synchronize: true,
-      }),
-    }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+    TypeOrmModule.forRootAsync({ useFactory: () => buildDataSourceOptions(process.env) }),
     TestsModule,
+    FindingsModule,
+    PlansModule,
     DashboardModule,
+    ComparisonModule,
+    ScrumModule,
     AiModule,
     DatabaseModule,
     HealthModule,

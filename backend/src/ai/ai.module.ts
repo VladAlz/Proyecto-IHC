@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AiController } from './ai.controller';
 import { AiService } from './ai.service';
-import { TestsModule } from '../tests/tests.module';
+import { AiAnalysis } from './entities/ai-analysis.entity';
+import { UsabilityTest } from '../tests/entities/usability-test.entity';
+import { FindingsModule } from '../findings/findings.module';
+import { ScrumModule } from '../scrum/scrum.module';
 
 @Module({
-  imports: [TestsModule],
+  imports: [TypeOrmModule.forFeature([AiAnalysis, UsabilityTest]), FindingsModule, ScrumModule],
   controllers: [AiController],
   providers: [AiService],
   exports: [AiService],

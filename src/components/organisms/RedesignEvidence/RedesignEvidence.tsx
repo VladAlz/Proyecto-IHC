@@ -89,7 +89,7 @@ export const RedesignEvidence: React.FC = () => {
   const [sliderPosition, setSliderPosition] = useState<number>(50); // 0 a 100
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: tokens.spacing.xl, maxWidth: '1100px', margin: '0 auto' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: tokens.spacing.xl, maxWidth: '1100px', width: '100%', minWidth: 0, margin: '0 auto' }}>
       {/* Cabecera */}
       <section
         style={{
@@ -106,22 +106,22 @@ export const RedesignEvidence: React.FC = () => {
         }}
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
             <Badge variant="info">EDT 1.2 & EDT 1.4</Badge>
             <span style={{ fontSize: '13px', color: tokens.colors.gray500 }}>
               ISO 9241-210 Diseño Centrado en el Usuario
             </span>
           </div>
-          <h1 style={{ fontSize: '22px', fontWeight: 700, margin: 0, color: tokens.colors.gray900 }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 700, margin: 0, color: tokens.colors.gray900 }}>
             Evidencia de Rediseño: Mockup Legacy vs. Dashboard 2.0 Mid-Fi
-          </h1>
+          </h2>
           <p style={{ fontSize: '14px', color: tokens.colors.gray600, margin: '4px 0 0 0' }}>
             Comparativa interactiva y justificación teórica de las soluciones aplicadas a las heurísticas violadas
           </p>
         </div>
 
         {/* Controles rápidos de preset del slider */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <Button
             size="sm"
             variant={sliderPosition === 0 ? 'primary' : 'secondary'}
@@ -159,7 +159,7 @@ export const RedesignEvidence: React.FC = () => {
           gap: '16px',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <SlidersHorizontal size={18} color={tokens.colors.primary} />
             <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: tokens.colors.gray900 }}>
@@ -212,7 +212,7 @@ export const RedesignEvidence: React.FC = () => {
               boxSizing: 'border-box',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
               <Badge variant="success">✓ DESPUÉS (Dashboard 2.0 Mid-Fi - Rediseñado)</Badge>
               <span style={{ fontSize: '12px', color: tokens.colors.success, fontWeight: 600 }}>
                 100% Alineado a Heurísticas de Nielsen y Gestalt
@@ -220,7 +220,7 @@ export const RedesignEvidence: React.FC = () => {
             </div>
 
             {/* Simulación visual del nuevo diseño */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginBottom: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '12px', marginBottom: '16px' }}>
               <div style={{ border: `1px solid ${tokens.colors.gray200}`, padding: '12px', borderRadius: '8px', backgroundColor: tokens.colors.gray50 }}>
                 <span style={{ fontSize: '11px', color: tokens.colors.primary, fontWeight: 600 }}>EFECTIVIDAD (ISO)</span>
                 <div style={{ fontSize: '20px', fontWeight: 700, color: tokens.colors.gray900 }}>87.5%</div>
@@ -269,7 +269,7 @@ export const RedesignEvidence: React.FC = () => {
             }}
           >
             <div style={{ width: '800px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
                 <Badge variant="danger">✗ ANTES (Mockup Inicial - Deficiencias IHC)</Badge>
                 <span style={{ fontSize: '12px', color: tokens.colors.danger, fontWeight: 600 }}>
                   Violaciones detectadas en Inspección Heurística
@@ -327,7 +327,7 @@ export const RedesignEvidence: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '16px' }}>
           {ANNOTATIONS.map((ann) => (
             <div
               key={ann.id}

@@ -1,65 +1,78 @@
-import { Injectable, OnApplicationBootstrap, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { DataSource } from 'typeorm';
 import { UsabilityTest } from '../tests/entities/usability-test.entity';
-import { UsabilityFinding } from '../dashboard/entities/usability-finding.entity';
-import * as seedData from './seed-data.json';
+import { UsabilityFinding } from '../findings/entities/usability-finding.entity';
+import { TestPlan } from '../plans/entities/test-plan.entity';
+import { TeamMember } from '../scrum/entities/team-member.entity';
+import { UserStory } from '../scrum/entities/user-story.entity';
+import { Sprint } from '../scrum/entities/sprint.entity';
+import { SprintTask } from '../scrum/entities/sprint-task.entity';
+import { ENTITIES } from './db-config';
+import {
+  SEED_FINDINGS,
+  SEED_MEMBERS,
+  SEED_PLAN,
+  SEED_SPRINTS,
+  SEED_STORIES,
+  SEED_TASKS,
+  SEED_TESTS,
+} from './seed-data';
 
 @Injectable()
 export class SeedService implements OnApplicationBootstrap {
   private readonly logger = new Logger(SeedService.name);
 
   constructor(
-    @InjectRepository(UsabilityTest)
-    private readonly testRepository: Repository<UsabilityTest>,
-    @InjectRepository(UsabilityFinding)
-    private readonly findingRepository: Repository<UsabilityFinding>,
+    private readonly dataSource: DataSource,
+    private readonly config: ConfigService,
   ) {}
 
   async onApplicationBootstrap() {
-    await this.seedTests();
-    await this.seedFindings();
-  }
-
-  private async seedTests() {
-    const count = await this.testRepository.count();
-    if (count === 0 && seedData.tests && seedData.tests.length > 0) {
-      this.logger.log(`🌱 Sembrando ${seedData.tests.length} pruebas iniciales de usabilidad...`);
-      for (const t of seedData.tests) {
-        const test = this.testRepository.create({
-          id: t.id,
-          evaluatorName: t.evaluatorName,
-          taskDescription: t.taskDescription,
-          timeOnTask: t.timeOnTask,
-          errorsCount: t.errorsCount,
-          satisfactionScore: t.satisfactionScore,
-          taskResult: t.taskResult as 'success' | 'failure',
-          observations: t.observations,
-          createdAt: new Date(t.createdAt),
-        });
-        await this.testRepository.save(test);
-      }
-      this.logger.log('✅ Pruebas de usabilidad sembradas con éxito en PostgreSQL.');
+    if ((this.config.get<string>('SEED_ON_START') || 'true') === 'false') return;
+    const tests = await this.dataSource.getRepository(UsabilityTest).count();
+    const stories = await this.dataSource.getRepository(UserStory).count();
+    if (tests === 0 && stories === 0) {
+      await this.seed();
     }
   }
 
-  private async seedFindings() {
-    const count = await this.findingRepository.count();
-    if (count === 0 && seedData.findings && seedData.findings.length > 0) {
-      this.logger.log(`🌱 Sembrando ${seedData.findings.length} hallazgos heurísticos...`);
-      for (const f of seedData.findings) {
-        const finding = this.findingRepository.create({
-          id: f.id,
-          severity: f.severity as 1 | 2 | 3 | 4,
-          heuristicViolated: f.heuristicViolated,
-          location: f.location,
-          description: f.description,
-          recommendation: f.recommendation,
-          theoreticalBasis: f.theoreticalBasis,
-        });
-        await this.findingRepository.save(finding);
-      }
-      this.logger.log('✅ Hallazgos heurísticos sembrados con éxito en PostgreSQL.');
+  /** Borra todos los datos y vuelve a sembrar (botón "Restaurar datos demo") */
+  async reset() {
+    for (const entity of ENTITIES) {
+      await this.dataSource.getRepository(entity).clear();
     }
+    await this.seed();
+    return { success: true };
+  }
+
+  async seed() {
+    const em = this.dataSource.manager;
+    this.logger.log('🌱 Sembrando datos iniciales (Sprint 1 + demo)...');
+
+    await em.save(
+      UsabilityTest,
+      SEED_TESTS.map((t) => em.create(UsabilityTest, { ...t, createdAt: new Date(t.createdAt) } as Partial<UsabilityTest>)),
+    );
+    await em.save(UsabilityFinding, SEED_FINDINGS.map((f) => em.create(UsabilityFinding, f as Partial<UsabilityFinding>)));
+    await em.save(TestPlan, em.create(TestPlan, SEED_PLAN as Partial<TestPlan>));
+    await em.save(TeamMember, SEED_MEMBERS.map((m) => em.create(TeamMember, m)));
+
+    const sprints = await em.save(Sprint, SEED_SPRINTS.map((s) => em.create(Sprint, s as Partial<Sprint>)));
+    const sprintId = (n: number | null) => (n ? sprints.find((s) => s.number === n)?.id ?? null : null);
+
+    const stories = await em.save(
+      UserStory,
+      SEED_STORIES.map(({ sprint, ...s }) => em.create(UserStory, { ...s, sprintId: sprintId(sprint) } as Partial<UserStory>)),
+    );
+    const storyId = (code: string | null) => (code ? stories.find((s) => s.code === code)?.id ?? null : null);
+
+    await em.save(
+      SprintTask,
+      SEED_TASKS.map(({ sprint, story, ...t }) =>
+        em.create(SprintTask, { ...t, sprintId: sprintId(sprint), storyId: storyId(story) } as Partial<SprintTask>),
+      ),
+    );
+    this.logger.log('✅ Datos sembrados.');
   }
 }

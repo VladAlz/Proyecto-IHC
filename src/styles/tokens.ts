@@ -10,7 +10,7 @@ export const tokens = {
   colors: {
     // Escala de grises Mid-Fi (Semana 6)
     white: '#ffffff',
-    gray50: '#f8fafc',
+    gray50: '#f4f6fb',
     gray100: '#f1f5f9',
     gray200: '#e2e8f0',
     gray300: '#cbd5e1',
@@ -22,16 +22,16 @@ export const tokens = {
     gray900: '#0f172a',
 
     // Colores semánticos con contraste WCAG 2.1 AA (>= 4.5:1 en texto sobre fondo blanco/claro)
-    primary: '#2563eb',       // Azul accesible (4.56:1 sobre blanco)
-    primaryHover: '#1d4ed8',
-    primaryFocus: '#60a5fa',
-    primaryLight: '#eff6ff',
+    primary: '#4f46e5',       // Índigo accesible (6.3:1 sobre blanco)
+    primaryHover: '#4338ca',
+    primaryFocus: '#818cf8',
+    primaryLight: '#eef2ff',
 
-    success: '#16a34a',       // Verde accesible (4.6:1)
+    success: '#15803d',       // Verde accesible (5.0:1)
     successLight: '#f0fdf4',
     successBorder: '#bbf7d0',
 
-    warning: '#d97706',       // Ámbar accesible (4.5:1)
+    warning: '#b45309',       // Ámbar accesible (5.0:1)
     warningLight: '#fffbeb',
     warningBorder: '#fde68a',
 
@@ -115,7 +115,7 @@ export const tokens = {
     sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
     md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    focus: '0 0 0 3px rgba(37, 99, 235, 0.35)',
+    focus: '0 0 0 3px rgba(79, 70, 229, 0.35)',
   },
 
   // Ley de Fitts: mínimo 44x44px en áreas interactivas

@@ -26,6 +26,7 @@ describe('TestsService', () => {
     errorsCount: 0,
     satisfactionScore: 5,
     taskResult: 'success',
+    appVersion: 'v1',
     observations: 'Flujo intuitivo con campos agrupados.',
     createdAt: new Date('2026-09-21T10:15:00.000Z'),
   };

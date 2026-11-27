@@ -12,16 +12,15 @@ export interface KpiCardProps {
   isPositive?: boolean; // Si la tendencia es favorable (ej: menos tiempo = favorable)
   subtext?: string;
   isoStandard?: string; // Etiqueta ISO 9241-11 (Efectividad, Eficiencia, Satisfacción)
+  accent?: string; // Color de identidad del pilar
 }
 
 /**
  * Molécula KpiCard
  * Fundamentos IHC:
- * - Ley de Semejanza (Gestalt - Semana 6): Misma estructura visual, dimensiones y jerarquía
- *   para comunicar que los 4 KPIs pertenecen a la misma categoría analítica.
- * - Reconocimiento sobre Recuerdo (Nielsen #6): Los deltas y comparativas temporales evitan
- *   que el evaluador deba recordar valores previos.
- * - ISO 9241-11: Identificación explícita del pilar (Efectividad, Eficiencia, Satisfacción).
+ * - Ley de Semejanza (Gestalt): misma estructura en las 4 tarjetas; el color de acento distingue cada pilar ISO.
+ * - Jerarquía visual: la cifra es el elemento dominante (38px); el texto de apoyo es breve.
+ * - Reconocimiento sobre recuerdo (Nielsen #6): la tendencia se muestra junto al valor.
  */
 export const KpiCard: React.FC<KpiCardProps> = ({
   title,
@@ -31,128 +30,86 @@ export const KpiCard: React.FC<KpiCardProps> = ({
   trendText,
   trendDirection = 'neutral',
   isPositive = true,
-  subtext = 'vs. semana anterior',
+  subtext,
   isoStandard,
+  accent = tokens.colors.primary,
 }) => {
-  const trendColor =
-    trendDirection === 'neutral'
-      ? tokens.colors.gray500
-      : isPositive
-      ? tokens.colors.success
-      : tokens.colors.danger;
-
-  const trendBg =
-    trendDirection === 'neutral'
-      ? tokens.colors.gray100
-      : isPositive
-      ? tokens.colors.successLight
-      : tokens.colors.dangerLight;
+  const trendColor = trendDirection === 'neutral' ? tokens.colors.gray600 : isPositive ? '#166534' : '#b91c1c';
+  const trendBg = trendDirection === 'neutral' ? tokens.colors.gray100 : isPositive ? '#dcfce7' : '#fee2e2';
 
   return (
     <div
+      className="kpi-card"
       style={{
         backgroundColor: tokens.colors.white,
-        borderRadius: tokens.radii.lg,
-        padding: tokens.spacing.lg,
+        borderRadius: 14,
+        padding: '18px 20px',
         border: `1px solid ${tokens.colors.gray200}`,
-        boxShadow: tokens.shadows.sm,
+        borderTop: `5px solid ${accent}`,
+        boxShadow: tokens.shadows.md,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        minHeight: '160px',
-        transition: 'transform 180ms ease, box-shadow 180ms ease',
+        gap: 10,
+        minWidth: 0,
       }}
-      className="kpi-card"
     >
-      {/* Header del Card: Título + Icono + Etiqueta ISO */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
+        <div style={{ minWidth: 0 }}>
           {isoStandard && (
-            <span
-              style={{
-                fontSize: '11px',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                color: tokens.colors.primary,
-                letterSpacing: '0.5px',
-                display: 'block',
-                marginBottom: '2px',
-              }}
-            >
+            <span style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px', color: accent, display: 'block' }}>
               {isoStandard}
             </span>
           )}
-          <h3
-            style={{
-              fontSize: '14px',
-              fontWeight: 600,
-              color: tokens.colors.gray600,
-              margin: 0,
-            }}
-          >
-            {title}
-          </h3>
+          <h3 style={{ fontSize: 16, fontWeight: 600, color: tokens.colors.gray800, margin: '2px 0 0' }}>{title}</h3>
         </div>
-
         <div
+          aria-hidden="true"
           style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: tokens.radii.md,
-            backgroundColor: tokens.colors.primaryLight,
-            color: tokens.colors.primary,
+            width: 46,
+            height: 46,
+            borderRadius: 12,
+            backgroundColor: accent,
+            color: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexShrink: 0,
+            boxShadow: `0 6px 14px -6px ${accent}`,
           }}
-          aria-hidden="true"
         >
           {icon}
         </div>
       </div>
 
-      {/* Valor principal grande (Continuidad visual) */}
-      <div style={{ margin: '12px 0 8px 0', display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-        <span
-          style={{
-            fontSize: '32px',
-            fontWeight: 700,
-            color: tokens.colors.gray900,
-            lineHeight: 1,
-            letterSpacing: '-0.5px',
-          }}
-        >
-          {value}
-        </span>
-        {unit && (
-          <span style={{ fontSize: '15px', color: tokens.colors.gray500, fontWeight: 500 }}>
-            {unit}
-          </span>
-        )}
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+        <span style={{ fontSize: 38, fontWeight: 800, color: tokens.colors.gray900, lineHeight: 1, letterSpacing: '-1px' }}>{value}</span>
+        {unit && <span style={{ fontSize: 16, color: tokens.colors.gray600, fontWeight: 600 }}>{unit}</span>}
       </div>
 
-      {/* Indicador de tendencia (Nielsen #6: Reconocimiento) */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px' }}>
-        {trendText && (
-          <span
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '2px',
-              fontWeight: 600,
-              color: trendColor,
-              backgroundColor: trendBg,
-              padding: '2px 8px',
-              borderRadius: tokens.radii.full,
-            }}
-          >
-            {trendDirection === 'up' && <TrendingUp size={14} />}
-            {trendDirection === 'down' && <TrendingDown size={14} />}
-            <span>{trendText}</span>
-          </span>
-        )}
-        <span style={{ color: tokens.colors.gray500 }}>{subtext}</span>
-      </div>
+      {(trendText || subtext) && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, flexWrap: 'wrap' }}>
+          {trendText && (
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+                fontWeight: 700,
+                color: trendColor,
+                backgroundColor: trendBg,
+                padding: '3px 10px',
+                borderRadius: 9999,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {trendDirection === 'up' && <TrendingUp size={15} aria-hidden="true" />}
+              {trendDirection === 'down' && <TrendingDown size={15} aria-hidden="true" />}
+              {trendText}
+            </span>
+          )}
+          {subtext && <span style={{ color: tokens.colors.gray600 }}>{subtext}</span>}
+        </div>
+      )}
     </div>
   );
 };
